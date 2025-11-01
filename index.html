@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학교 커뮤니티</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">
+                <i class="fas fa-map-marker-alt"></i>
+                예산 학교 커뮤니티
+            </h1>
+            <div class="header-actions">
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="notification-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <!-- 로그인 페이지 -->
+        <section class="auth-section" id="authSection">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2 class="auth-title">로그인</h2>
+                    <form class="auth-form" id="loginForm">
+                        <div class="form-group">
+                            <input type="email" id="loginEmail" placeholder="이메일" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="loginPassword" placeholder="비밀번호" required>
+                        </div>
+                        <button type="submit" class="auth-btn">로그인</button>
+                    </form>
+                    <div class="auth-divider">
+                        <span>또는</span>
+                    </div>
+                    <button class="auth-btn secondary" id="signupBtn">회원가입</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 회원가입 페이지 -->
+        <section class="auth-section hidden" id="signupSection">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2 class="auth-title">회원가입</h2>
+                    <form class="auth-form" id="signupForm">
+                        <div class="form-group">
+                            <input type="text" id="signupNickname" placeholder="닉네임" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="signupEmail" placeholder="이메일" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="signupPassword" placeholder="비밀번호" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="signupschool" placeholder="학교 (예: 서울시 강남구)" required>
+                        </div>
+                        <button type="submit" class="auth-btn">회원가입</button>
+                    </form>
+                    <div class="auth-divider">
+                        <span>또는</span>
+                    </div>
+                    <button class="auth-btn secondary" id="loginBtn">로그인</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 메인 피드 -->
+        <section class="feed-section" id="feedSection">
+            <!-- 인기 게시물 섹션 -->
+            <div class="popular-posts-section" id="popularPostsSection">
+                <div class="section-header">
+                    <h3><i class="fas fa-fire"></i> 인기 게시물</h3>
+                </div>
+                <div class="popular-posts-container" id="popularPostsContainer">
+                    <!-- 인기 게시물들이 여기에 표시됩니다 -->
+                </div>
+            </div>
+            
+            <div class="feed-header">
+                <h2>최신 게시물</h2>
+                <div class="feed-controls">
+                    <select class="board-selector" id="boardSelector">
+                        <option value="all">전체 게시판</option>
+                        <option value="school1">학교1</option>
+                        <option value="school2">학교2</option>
+                        <option value="school3">학교3</option>
+                    </select>
+                    <div class="board-stats" id="boardStats">
+                        <!-- 게시판별 게시물 수가 여기에 표시됩니다 -->
+                    </div>
+                    <button class="refresh-btn" id="refreshBtn">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="posts-container" id="postsContainer">
+                <!-- 게시물들이 여기에 동적으로 추가됩니다 -->
+            </div>
+            <!-- 로딩은 postsContainer 아래에만 임시로 표시되도록 -->
+        </section>
+
+        <!-- 글 작성 페이지 -->
+        <section class="write-section hidden" id="writeSection">
+            <div class="write-container">
+                <div class="write-header">
+                    <button class="back-btn" id="backToFeedBtn">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2>글 작성</h2>
+                </div>
+                <form class="write-form" id="writeForm">
+                    <div class="form-group">
+                        <select id="postBoard" required>
+                            <option value="">게시판을 선택하세요</option>
+                            <option value="school1">학교1</option>
+                            <option value="school2">학교2</option>
+                            <option value="school3">학교3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="postTitle" placeholder="제목을 입력하세요" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="postContent" placeholder="내용을 입력하세요" rows="10" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" id="postImage" accept="image/*">
+                        <label for="postImage" class="file-label">
+                            <i class="fas fa-image"></i>
+                            이미지 첨부
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn">게시하기</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 글 상세 페이지 -->
+        <section class="detail-section hidden" id="detailSection">
+            <div class="detail-container">
+                <div class="detail-header">
+                    <button class="back-btn" id="backToFeedFromDetailBtn">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2>게시물</h2>
+                </div>
+                <div class="post-detail" id="postDetail">
+                    <!-- 게시물 상세 내용이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 마이페이지 -->
+        <section class="profile-section hidden" id="profileSection">
+            <div class="profile-content">
+            <div class="profile-info">
+                <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                <div class="profile-details">
+                <h3 id="profileNickname">닉네임 미설정</h3>
+                <p id="profileSchool">학교 미설정</p>
+                <p id="profileEmail">이메일 미설정</p>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button id="editProfileBtn" class="profile-btn">프로필 수정</button>
+                <button id="logoutBtn" class="profile-btn logout">로그아웃</button>
+                <button id="masterPanelBtn" class="profile-btn master-btn hidden">
+                마스터 패널
+                </button>
+            </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" id="navHome">
+            <i class="fas fa-home"></i>
+            <span>홈</span>
+        </button>
+        <button class="nav-item" id="navWrite">
+            <i class="fas fa-edit"></i>
+            <span>글쓰기</span>
+        </button>
+        <button class="nav-item" id="navProfile">
+            <i class="fas fa-user"></i>
+            <span>마이페이지</span>
+        </button>
+    </nav>
+
+    <!-- 검색 모달 -->
+    <div class="modal hidden" id="searchModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>검색</h3>
+                <button class="close-btn" id="closeSearchModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="search-form">
+                    <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+                    <button class="search-submit-btn" id="searchSubmitBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <!-- 검색 결과가 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 알림 모달 -->
+    <div class="modal hidden" id="notificationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>알림</h3>
+                <button class="close-btn" id="closeNotificationModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="notification-list" id="notificationList">
+                    <!-- 알림 목록이 여기에 표시됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 프로필 수정 모달 -->
+    <div class="modal hidden" id="profileEditModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>프로필 수정</h3>
+                <button class="close-btn" id="closeProfileEditModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="profile-edit-form" id="profileEditForm">
+                    <div class="form-group">
+                        <label for="editNickname">닉네임</label>
+                        <input type="text" id="editNickname" placeholder="닉네임을 입력하세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editschool">학교</label>
+                        <input type="text" id="editschool" placeholder="학교을 입력하세요 (예: 서울시 강남구)" required>
+                    </div>
+                    <button type="submit" class="submit-btn">수정 완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 마스터 패널 모달 -->
+    <div class="modal hidden" id="masterPanelModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-crown"></i> 관리자 패널</h3>
+                <button class="close-btn" id="closeMasterPanelModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="master-actions">
+                    <button class="master-action-btn danger" id="deleteAllPostsBtn">
+                        <i class="fas fa-trash"></i>
+                        전체 게시물 삭제
+                    </button>
+                    <button class="master-action-btn" id="viewAllUsersBtn">
+                        <i class="fas fa-users"></i>
+                        사용자 목록 보기
+                    </button>
+                    <button class="master-action-btn" id="systemStatsBtn">
+                        <i class="fas fa-chart-bar"></i>
+                        시스템 통계
+                    </button>
+                </div>
+                <div class="master-info">
+                    <p><strong>주의:</strong> 관리자 권한으로 수행하는 작업은 되돌릴 수 없습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
